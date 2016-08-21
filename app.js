@@ -1,14 +1,13 @@
 $(function(){
 	var body = $('section.space');
 	var Xbefore, Ybefore, posX, posY;
-	var timer
+	var timer;
 	var i = 0;
 	var r = 250, g = 250, b= 0;
 	var change = true;
 	var gg = 0, up= true, down=false;
 
 	body.on('mousemove', function(){
-
 		posX = event.pageX;
 		posY = event.pageY;
 		vel(posX, posY)
@@ -34,14 +33,14 @@ function vel(actX, actY){
  /////Define color		
 
 		if(r > 0 && g ==250 ){
-			b+=10;
-			r -= 10;
-		}else if(g > 0 && b== 250){
-			r+= 10;
-			g -= 10;
-		}else if(b > 0 && r== 250){
-			g += 10;
-			b -= 10;
+				b+=10;
+				r -= 10;
+			}else if(g > 0 && b== 250){
+				r+= 10;
+				g -= 10;
+			}else if(b > 0 && r== 250){
+				g += 10;
+				b -= 10;
 		}
 
  // add a new circle
@@ -195,67 +194,6 @@ if(e.which===99){
 		})
 }
 
-//grayCirclesChain
-if(e.which===97){
-	var change2 = false;
-	change =  false;
-
-	body.on('mousemove', function(){
-
-		posX2 = event.pageX;
-		posY2 = event.pageY;
-		velGray(posX2, posY2)
-	});
-
-	function velGray(posX2,posY2){
-		var chX2 = posX2 - Xbefore;
-		var chY2 = posY2 -Ybefore;
-		chX2 = Math.abs(chX2);
-		chY2 = Math.abs(chY2);
-		var sum = chX2 + chY2;
-		var radius2 = sum / 2;
-		var top2 = posY2 - radius2;
-		var left2 = posX2 -radius2;
-
-		if(!change2){
-		var div = $('<div class="circle' + i + '"></div>');
-		
-		div.appendTo(body);
-		var cir = $('.circle' + i);
-		cir.css({
-		position: 'absolute',
-		top: top2,
-		left: left2,
-		width: sum,
-		height: sum,
-		'border-radius': radius2,
-		'background-color': 'rgb('+ gg +', '+ gg +', '+ gg +')'
-		});
-
-		//setting gray scale
-		if(gg >= 0 && up == true && down== false){
-			gg += 8;
-		}else if(gg <= 248 && up== false && down == true){
-			gg -= 8;
-		}
-
-		if(gg==0){
-			up= true;
-			down = false;
-		}else if(gg==248){
-			up = false;
-			down = true;
-		}	
-
-	 	i++;
-	 }
-	}
-	$(window).on('keyup',function(){
-		change2 = true;
-		change = true;
-	})
-
-}
 //broken lines
 if(e.which ===115){
 	var line = $('<div class="line' + i + '"></div>');
@@ -298,9 +236,35 @@ if(e.which ===115){
 		change2 = true;
 		change = true;
 	})
-}    
-	    console.log(e.which);
-		console.log(e.charCode);
+}
+
+//grayCirclesChain
+if(e.which===97){
+	colorChange(97);
+}
+
+///blueCirclesChain
+if(e.which===98){
+	colorChange(98);
+}
+
+//redCirclesChain
+if(e.which===114){
+	colorChange(114);
+}
+
+//greenCirclesChain
+if(e.which===103){
+	colorChange(103);
+}
+
+//yellowCirclesChain
+if(e.which===121){
+	colorChange(121);
+}
+
+console.log(e.which);
+console.log(e.charCode);
 
 
 }); 
@@ -309,11 +273,114 @@ body.on('dblclick', function(){
 	$(this).children().remove();
 })
 
-});
+///especificColorFunction
+function colorChange(color){
+	var range = color;
+	var change2 = false;
+	change =  false;
 
-///out scope
+	body.on('mousemove', function(){
 
+		posX2 = event.pageX;
+		posY2 = event.pageY;
+		velGray(posX2, posY2)
+	});
 
-function breakLine(){
-	console.log('hola')
+	function velGray(posX2,posY2){
+			var chX2 = posX2 - Xbefore;
+			var chY2 = posY2 -Ybefore;
+			chX2 = Math.abs(chX2);
+			chY2 = Math.abs(chY2);
+			var sum = chX2 + chY2;
+			var radius2 = sum / 2;
+			var top2 = posY2 - radius2;
+			var left2 = posX2 -radius2;
+
+			if(!change2){
+					var div = $('<div class="circle' + i + '"></div>');
+					
+					div.appendTo(body);
+					var cir = $('.circle' + i);
+
+					if(range === 97){
+						//gray
+						cir.css({
+							position: 'absolute',
+							top: top2,
+							left: left2,
+							width: sum,
+							height: sum,
+							'border-radius': radius2,
+							'background-color': 'rgb('+ gg +', '+ gg +', '+ gg +')'
+						});
+					}else if(range === 98){
+						//blue
+						cir.css({
+							position: 'absolute',
+							top: top2,
+							left: left2,
+							width: sum,
+							height: sum,
+							'border-radius': radius2,
+							'background-color': 'rgb('+ gg +', 255, 255)'
+						});
+					}else if( range === 114){
+						//red
+						cir.css({
+							position: 'absolute',
+							top: top2,
+							left: left2,
+							width: sum,
+							height: sum,
+							'border-radius': radius2,
+							'background-color': 'rgb(255, '+ gg +', 255)'
+						});
+					}else if(range === 121){
+						cir.css({
+							position: 'absolute',
+							top: top2,
+							left: left2,
+							width: sum,
+							height: sum,
+							'border-radius': radius2,
+							'background-color': 'rgb(255, 255, '+ gg +')'
+						});
+					}else if(range === 103){
+						//green
+						cir.css({
+							position: 'absolute',
+							top: top2,
+							left: left2,
+							width: sum,
+							height: sum,
+							'border-radius': radius2,
+							'background-color': 'rgb(127, 255, '+ gg +')'
+						});
+					}
+
+					//setting gray color change
+					if(gg >= 0 && up == true && down== false){
+						gg += 8;
+					}else if(gg <= 248 && up== false && down == true){
+						gg -= 8;
+					}
+
+					if(gg==0){
+						up= true;
+						down = false;
+					}else if(gg==248){
+						up = false;
+						down = true;
+					}	
+
+				 	i++;
+	 		}
+	}
+
+	$(window).on('keyup',function(){
+		change2 = true;
+		change = true;
+	})
 }
+
+});

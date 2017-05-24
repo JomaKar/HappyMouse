@@ -1,6 +1,6 @@
 # HappyMouse
 This is a page where you can generate unique images from your interaction throughout the mouse and the keyboard.
-
+Check out the project: https://jomakar.github.io/HappyMouse/
 
 It works based on the mouse movement and in some keys from the keyboard.
 
